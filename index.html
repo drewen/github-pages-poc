@@ -4,14 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New England Anime Society</title>
+    <meta name="description" content="The New England Anime Society (NEAS) is a 501(c)3 non-profit founded in 2001 that furthers public education and understanding of Japanese society and culture, and the parent organization of the Anime Boston convention.">
+    <link rel="canonical" href="https://poc.neanime.org/">
+    <meta name="theme-color" content="#C8102E">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="New England Anime Society">
+    <meta property="og:title" content="New England Anime Society">
+    <meta property="og:description" content="A 501(c)3 non-profit furthering public education and understanding of Japanese society and culture. Parent organization of Anime Boston.">
+    <meta property="og:url" content="https://poc.neanime.org/">
+    <meta property="og:image" content="https://poc.neanime.org/DWL50061.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" type="image/webp" href="img/NEAS-Logo-450.webp">
+    <link rel="icon" href="NEAS-Logo.png">
+
+    <!-- The body face is used for the first paint, so fetch it in parallel
+         with the stylesheet instead of waiting for CSS to discover it. -->
+    <link rel="preload" href="fonts/2333BA_0_0.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Marks that scripting is available. Scroll-reveal styling is scoped to
+         html.js, so with JavaScript off every section is simply visible. -->
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Sentinel: when it scrolls out of view the navbar gains its shadow.
+         Cheaper and smoother than listening to every scroll event. -->
+    <span id="nav-sentinel" aria-hidden="true"></span>
+
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo">
-                <img src="NEAS-Logo.png" alt="New England Anime Society" class="logo-img">
+    <nav class="navbar" aria-label="Main">
+        <div class="nav-container container">
+            <a href="#home" class="nav-logo" aria-label="New England Anime Society — home">
+                <picture>
+                    <source type="image/webp" srcset="img/NEAS-Logo-450.webp 450w, img/NEAS-Logo-900.webp 900w" sizes="(max-width: 620px) 304px, 352px">
+                    <img src="NEAS-Logo.png" alt="New England Anime Society" class="logo-img" width="1200" height="150" fetchpriority="high" decoding="async">
+                </picture>
             </a>
             <ul class="nav-menu">
                 <li><a href="#about">About NEAS</a></li>
@@ -21,62 +52,43 @@
         </div>
     </nav>
 
+    <main id="main">
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
+        <div class="hero-content container">
+            <h1 class="visually-hidden">New England Anime Society</h1>
             <div class="hero-about">
                 <p>The New England Anime Society, Inc. (NEAS) was founded in 2001 in Massachusetts, USA. NEAS is a 501(c)3 non-profit corporation purposed to further public education and understanding of Japanese society and culture through visual and written media. It is the parent organization for the annual <a href="https://www.animeboston.com/">Anime Boston</a> convention, held in Boston, Massachusetts every spring.</p>
             </div>
             <div class="hero-values">
-                <h3>Our Values</h3>
+                <h2>Our Values</h2>
                 <div class="values-grid">
-                    <div class="value-card" data-value="kindness">
-                        <h4>Lead with Kindness</h4>
-                    </div>
-                    <div class="value-card" data-value="inclusivity">
-                        <h4>Joyfully Embrace Inclusivity</h4>
-                    </div>
-                    <div class="value-card" data-value="authenticity">
-                        <h4>Act Authentically</h4>
-                    </div>
-                    <div class="value-card" data-value="bold">
-                        <h4>Be Bold</h4>
-                    </div>
-                    <div class="value-card" data-value="together">
-                        <h4>Succeed Together</h4>
-                    </div>
+                    <button type="button" class="value-card" data-value="kindness">Lead with Kindness</button>
+                    <button type="button" class="value-card" data-value="inclusivity">Joyfully Embrace Inclusivity</button>
+                    <button type="button" class="value-card" data-value="authenticity">Act Authentically</button>
+                    <button type="button" class="value-card" data-value="bold">Be Bold</button>
+                    <button type="button" class="value-card" data-value="together">Succeed Together</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Value Modals -->
-    <div id="value-modal" class="value-modal">
-        <div class="value-modal-content">
-            <span class="value-modal-close">&times;</span>
-            <div class="value-modal-body">
-                <h3 id="modal-title"></h3>
-                <p id="modal-text"></p>
-            </div>
-        </div>
-    </div>
-
     <!-- About Us Section -->
-    <section id="about" class="section">
-        <div class="container">
+    <section id="about" class="section reveal">
+        <div class="container stack">
             <div class="content-block">
-                <h3>New England Anime Society's Mission:</h3>
+                <h2>New England Anime Society's Mission:</h2>
                 <p>The New England Anime Society exists to further public understanding and appreciation of Japanese society, as well as the global culture it has inspired, through respectful and inclusive study and celebration.</p>
             </div>
             <div class="content-block">
-                <h3>New England Anime Society's Vision:</h3>
+                <h2>New England Anime Society's Vision:</h2>
                 <p>To make NEAS the preeminent cultural engine that uplifts New England through year-round events, creative opportunities, and global partnerships that celebrate, influence, and proliferate a love of anime and the culture it has inspired.</p>
             </div>
         </div>
     </section>
 
     <!-- Officers Section -->
-    <section id="officers" class="section">
+    <section id="officers" class="section section--tint reveal">
         <div class="container">
             <h2 class="section-title">NEAS Board of Directors</h2>
             <h3 class="subsection-title">NEAS Officers</h3>
@@ -127,7 +139,7 @@
     </section>
 
     <!-- Our Events Section -->
-    <section id="events" class="section">
+    <section id="events" class="section reveal">
         <div class="container">
             <h2 class="section-title">Our Events</h2>
 
@@ -136,9 +148,18 @@
                 <p class="anime-boston-intro">Anime Boston is a three-day convention held annually in Boston, Massachusetts, under the supervision of the New England Anime Society. Our focus is celebrating and promoting Japanese animation, comics, and pop culture.</p>
 
                 <div class="anime-boston-images">
-                    <img src="DH9A0233.jpg" alt="Anime Boston convention" class="anime-boston-image">
-                    <img src="DWL50061.jpg" alt="Anime Boston convention" class="anime-boston-image">
-                    <img src="DWL50141.jpg" alt="Anime Boston convention" class="anime-boston-image">
+                    <picture>
+                        <source type="image/webp" srcset="img/DH9A0233-450.webp 450w, img/DH9A0233-611.webp 611w" sizes="(min-width: 1140px) 325px, (min-width: 772px) 31vw, (min-width: 508px) 47vw, 92vw">
+                        <img src="DH9A0233.jpg" alt="Anime Boston convention" class="anime-boston-image" width="611" height="399" loading="lazy" decoding="async">
+                    </picture>
+                    <picture>
+                        <source type="image/webp" srcset="img/DWL50061-450.webp 450w, img/DWL50061-819.webp 819w" sizes="(min-width: 1140px) 325px, (min-width: 772px) 31vw, (min-width: 508px) 47vw, 92vw">
+                        <img src="DWL50061.jpg" alt="Anime Boston convention" class="anime-boston-image" width="819" height="546" loading="lazy" decoding="async">
+                    </picture>
+                    <picture>
+                        <source type="image/webp" srcset="img/DWL50141-450.webp 450w, img/DWL50141-809.webp 809w" sizes="(min-width: 1140px) 325px, (min-width: 772px) 31vw, (min-width: 508px) 47vw, 92vw">
+                        <img src="DWL50141.jpg" alt="Anime Boston convention" class="anime-boston-image" width="809" height="540" loading="lazy" decoding="async">
+                    </picture>
                 </div>
 
                 <div class="content-block">
@@ -148,8 +169,14 @@
                 </div>
 
                 <div class="anime-boston-images">
-                    <img src="DWL50646.jpg" alt="Anime Boston convention" class="anime-boston-image">
-                    <img src="mascot_image.png" alt="Anime Boston mascot" class="anime-boston-image">
+                    <picture>
+                        <source type="image/webp" srcset="img/DWL50646-450.webp 450w, img/DWL50646-714.webp 714w" sizes="(min-width: 1140px) 496px, (min-width: 508px) 46vw, 92vw">
+                        <img src="DWL50646.jpg" alt="Anime Boston convention" class="anime-boston-image" width="714" height="546" loading="lazy" decoding="async">
+                    </picture>
+                    <picture>
+                        <source type="image/webp" srcset="img/mascot_image-450.webp 450w, img/mascot_image-720.webp 720w" sizes="(min-width: 1140px) 496px, (min-width: 508px) 46vw, 92vw">
+                        <img src="mascot_image.png" alt="Anime Boston mascot" class="anime-boston-image" width="720" height="400" loading="lazy" decoding="async">
+                    </picture>
                 </div>
 
                 <div class="content-block">
@@ -173,6 +200,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -182,6 +210,14 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Value dialog. Native <dialog> supplies the focus trap, Escape-to-close
+         and focus restoration that a div-based modal has to hand-roll. -->
+    <dialog id="value-modal" class="value-modal" aria-labelledby="modal-title">
+        <button type="button" class="value-modal-close" aria-label="Close">&times;</button>
+        <h2 id="modal-title"></h2>
+        <p id="modal-text"></p>
+    </dialog>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
