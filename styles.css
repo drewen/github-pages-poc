@@ -440,6 +440,9 @@ p {
 }
 
 .board-member {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1.25rem 1rem;
   text-align: center;
   font-weight: 600;
