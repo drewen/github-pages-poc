@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New England Anime Society</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -10,34 +11,175 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="#home" class="nav-logo">
-                <img src="image.jpg" alt="Logo" class="logo-img">
+                <img src="NEAS-Logo.png" alt="New England Anime Society" class="logo-img">
             </a>
             <ul class="nav-menu">
-                <li><a href="#about">About</a></li>
+                <li><a href="#about">About NEAS</a></li>
+                <li><a href="#officers">Board of Directors</a></li>
+                <li><a href="#events">Our Events</a></li>
             </ul>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-about">
-                <h3>Home</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, nemo? Eaque magni blanditiis nemo dolorem nihil ex temporibus ducimus, commodi sit expedita vel aspernatur eius perspiciatis quasi consequatur dolores nisi.</p>
+                <p>The New England Anime Society, Inc. (NEAS) was founded in 2001 in Massachusetts, USA. NEAS is a 501(c)3 non-profit corporation purposed to further public education and understanding of Japanese society and culture through visual and written media. It is the parent organization for the annual <a href="https://www.animeboston.com/">Anime Boston</a> convention, held in Boston, Massachusetts every spring.</p>
+            </div>
+            <div class="hero-values">
+                <h3>Our Values</h3>
+                <div class="values-grid">
+                    <div class="value-card" data-value="kindness">
+                        <h4>Lead with Kindness</h4>
+                    </div>
+                    <div class="value-card" data-value="inclusivity">
+                        <h4>Joyfully Embrace Inclusivity</h4>
+                    </div>
+                    <div class="value-card" data-value="authenticity">
+                        <h4>Act Authentically</h4>
+                    </div>
+                    <div class="value-card" data-value="bold">
+                        <h4>Be Bold</h4>
+                    </div>
+                    <div class="value-card" data-value="together">
+                        <h4>Succeed Together</h4>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Value Modals -->
+    <div id="value-modal" class="value-modal">
+        <div class="value-modal-content">
+            <span class="value-modal-close">&times;</span>
+            <div class="value-modal-body">
+                <h3 id="modal-title"></h3>
+                <p id="modal-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
     <section id="about" class="section">
         <div class="container">
             <div class="content-block">
-                <h3>About</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, nemo? Eaque magni blanditiis nemo dolorem nihil ex temporibus ducimus, commodi sit expedita vel aspernatur eius perspiciatis quasi consequatur dolores nisi.</p>
+                <h3>New England Anime Society's Mission:</h3>
+                <p>The New England Anime Society exists to further public understanding and appreciation of Japanese society, as well as the global culture it has inspired, through respectful and inclusive study and celebration.</p>
+            </div>
+            <div class="content-block">
+                <h3>New England Anime Society's Vision:</h3>
+                <p>To make NEAS the preeminent cultural engine that uplifts New England through year-round events, creative opportunities, and global partnerships that celebrate, influence, and proliferate a love of anime and the culture it has inspired.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Officers Section -->
+    <section id="officers" class="section">
+        <div class="container">
+            <h2 class="section-title">NEAS Board of Directors</h2>
+            <h3 class="subsection-title">NEAS Officers</h3>
+            <div class="officers-grid">
+                <div class="officer-card">
+                    <h4>President</h4>
+                    <p>Andrew Davis</p>
+                </div>
+                <div class="officer-card">
+                    <h4>Vice President</h4>
+                    <p>Kristen Leiding</p>
+                </div>
+                <div class="officer-card">
+                    <h4>Treasurer</h4>
+                    <p>Suwada Hinds</p>
+                </div>
+                <div class="officer-card">
+                    <h4>Clerk</h4>
+                    <p>Eric Boll</p>
+                </div>
+            </div>
+            <h3 class="subsection-title">Board Members</h3>
+            <div class="board-grid">
+                <div class="board-member">
+                    <div>Kate-Lyn Gingerich</div>
+                </div>
+                <div class="board-member">
+                    <div>Danny Lee</div>
+                </div>
+                <div class="board-member">
+                    <div>Ben Warmus</div>
+                </div>
+                <div class="board-member">
+                    <div>Todd Whitney</div>
+                </div>
+                <div class="board-member">
+                    <div>Desmond Wooten</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Ombudsman</h3>
+            <div class="ombudsman">
+                <div class="board-member">
+                    <div>Alyssa Whitney</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Events Section -->
+    <section id="events" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Events</h2>
+
+            <div class="event-subsection" id="anime-boston">
+                <h3 class="subsection-title">Anime Boston</h3>
+                <p class="anime-boston-intro">Anime Boston is a three-day convention held annually in Boston, Massachusetts, under the supervision of the New England Anime Society. Our focus is celebrating and promoting Japanese animation, comics, and pop culture.</p>
+
+                <div class="anime-boston-images">
+                    <img src="DH9A0233.jpg" alt="Anime Boston convention" class="anime-boston-image">
+                    <img src="DWL50061.jpg" alt="Anime Boston convention" class="anime-boston-image">
+                    <img src="DWL50141.jpg" alt="Anime Boston convention" class="anime-boston-image">
+                </div>
+
+                <div class="content-block">
+                    <p>Since 2003, Anime Boston has been the cornerstone of the Northeastern anime convention circuit. Following its rapid and unprecedented growth, they moved venues from the Boston Park Plaza Hotel to the Hynes Convention Center, where they have held Anime Boston since 2005. </p>
+
+                    <p>While Anime Boston's main focus has always been Japanese animation and comics, it has expanded to include other elements of Japanese pop culture, including J-pop, J-rock, and live-action Japanese media. It also explores Japanese culture and traditions, encouraging attendees to develop a more well-rounded perspective of Japanese society and values.</p>
+                </div>
+
+                <div class="anime-boston-images">
+                    <img src="DWL50646.jpg" alt="Anime Boston convention" class="anime-boston-image">
+                    <img src="mascot_image.png" alt="Anime Boston mascot" class="anime-boston-image">
+                </div>
+
+                <div class="content-block">
+                    <p>Today, hundreds of volunteers and staff members come together to make this convention possible. Every one of its staff members volunteers their time. Many of them work year-round to prepare for each convention.</p>
+                </div>
+
+                <div class="anime-boston-cta">
+                    <a href="https://www.animeboston.com/" class="anime-boston-link" target="_blank" rel="noopener noreferrer">Visit Anime Boston →</a>
+                </div>
+            </div>
+
+            <div class="event-subsection" id="past-events">
+                <h3 class="subsection-title">Past Events</h3>
+                <div class="content-block">
+                    <ul class="past-events-list">
+                        <li><strong>Providence Anime Conference</strong> (2010)</li>
+                        <li><strong>First Night Boston</strong> (2004 – 2010)</li>
+                        <li><strong>Arisa</strong> (2012 – 2013)</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 New England Anime Society, Inc. All rights reserved.</p>
+            <p class="footer-note">A 501(c)3 non-profit corporation</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>

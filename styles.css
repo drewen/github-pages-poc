@@ -1,3 +1,19 @@
+@font-face {
+    font-family: 'MuseoSans-500';
+    src: url('fonts/2333BA_0_0.woff') format('woff'),
+         url('fonts/2333BA_0_0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MuseoSans-500';
+    src: url('fonts/2333BA_1_0.woff') format('woff'),
+         url('fonts/2333BA_1_0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -20,7 +36,7 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'MuseoSans-500', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--white);
@@ -29,7 +45,7 @@ body {
 
 /* Navigation */
 .navbar {
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.95);
@@ -96,7 +112,6 @@ body {
     justify-content: center;
     align-items: center;
     padding: 3rem 2rem;
-    padding-top: calc(80px + 2rem);
     background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
     position: relative;
 }
@@ -176,6 +191,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
     color: inherit;
     cursor: pointer;
@@ -186,12 +202,6 @@ body {
     box-shadow: 0 8px 25px rgba(200, 16, 46, 0.15);
     border-color: var(--primary-red);
     color: inherit;
-}
-
-.value-icon {
-    font-size: 2.5rem;
-    line-height: 1;
-    margin-bottom: 0.5rem;
 }
 
 .value-card h4 {
@@ -269,6 +279,10 @@ body {
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 1.5rem;
+}
+
+#officers .subsection-title {
+    text-align: center;
 }
 
 .past-events-list {
@@ -402,7 +416,6 @@ body {
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -415,7 +428,7 @@ body {
     border-color: var(--primary-red);
 }
 
-.officer-card h3 {
+.officer-card h4 {
     font-size: 1rem;
     color: var(--primary-red);
     margin-bottom: 0.5rem;
@@ -447,7 +460,6 @@ body {
     color: var(--text-dark);
     font-weight: 500;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -458,47 +470,6 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(200, 16, 46, 0.1);
 }
-
-/* Person Emoji Placeholder */
-.person-emoji {
-    width: 130px;
-    height: 130px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-    background: var(--white);
-    border-radius: 50%;
-    border: 3px solid var(--primary-red);
-    box-shadow: 0 4px 15px rgba(200, 16, 46, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    flex-shrink: 0;
-}
-
-.board-member:hover .person-emoji,
-.officer-card:hover .person-emoji {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(200, 16, 46, 0.3);
-}
-
-/* Person Image (for Todd and future real photos) */
-.person-image {
-    width: 130px;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--primary-red);
-    box-shadow: 0 4px 15px rgba(200, 16, 46, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.board-member:hover .person-image,
-.officer-card:hover .person-image {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(200, 16, 46, 0.3);
-}
-
-/* Todd's image styling is now handled by .person-image */
 
 .todd-tooltip {
     position: absolute;
@@ -653,10 +624,6 @@ body {
         height: 100%;
     }
 
-    .hero {
-        padding-top: calc(60px + 2rem);
-    }
-
     .nav-menu {
         gap: 1rem;
         font-size: 0.9rem;
@@ -711,10 +678,6 @@ body {
         padding: 1.5rem 1rem;
     }
 
-    .value-icon {
-        font-size: 2rem;
-    }
-
     .value-card h4 {
         font-size: 0.9rem;
     }
@@ -726,13 +689,6 @@ body {
     .officers-grid,
     .board-grid {
         grid-template-columns: 1fr;
-    }
-
-    .person-emoji,
-    .person-image {
-        width: 100px;
-        height: 100px;
-        font-size: 4rem;
     }
 
     .anime-boston-images {
@@ -761,10 +717,6 @@ body {
         height: 100%;
     }
 
-    .hero {
-        padding-top: calc(50px + 1rem);
-    }
-
     .nav-menu {
         flex-wrap: wrap;
         justify-content: center;
@@ -788,13 +740,6 @@ body {
         line-height: 1.6;
     }
 
-    .person-emoji,
-    .person-image {
-        width: 90px;
-        height: 90px;
-        font-size: 3.5rem;
-    }
-
     .hero-values {
         margin-top: 1.5rem;
     }
@@ -811,10 +756,6 @@ body {
 
     .value-card {
         padding: 1.25rem 1rem;
-    }
-
-    .value-icon {
-        font-size: 1.75rem;
     }
 
     .value-card h4 {
