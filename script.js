@@ -1,126 +1,155 @@
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offsetTop = target.offsetTop - 80; // Account for fixed navbar
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        }
+/* New England Anime Society — progressive enhancement only.
+   Everything here is an upgrade on top of a page that already works:
+   smooth scrolling and anchor offsets are handled in CSS, and the reveal
+   styling is scoped to html.js so nothing is hidden when this file
+   fails to load. */
+
+(function () {
+  'use strict';
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ------------------------------------------------------------------
+     Navbar elevation.
+     A one-pixel sentinel above the navbar tells us when the page has
+     scrolled, so we never run code on the scroll event itself.
+     ------------------------------------------------------------------ */
+  var navbar = document.querySelector('.navbar');
+  var sentinel = document.getElementById('nav-sentinel');
+
+  if (navbar && sentinel && hasIO) {
+    new IntersectionObserver(function (entries) {
+      navbar.classList.toggle('is-stuck', !entries[0].isIntersecting);
+    }).observe(sentinel);
+  }
+
+  /* ------------------------------------------------------------------
+     Scroll reveal.
+     Three rules keep this from ever hiding content:
+       1. anything already on screen is revealed on the spot, so the
+          first paint is never animated;
+       2. a blanket timer reveals everything regardless, in case the
+          observer is throttled or never fires;
+       3. reduced-motion users skip the effect entirely.
+     ------------------------------------------------------------------ */
+  var revealables = document.querySelectorAll('.reveal');
+
+  function reveal(el) {
+    el.classList.add('is-visible');
+  }
+
+  if (!revealables.length) {
+    /* nothing to do */
+  } else if (reduceMotion || !hasIO) {
+    Array.prototype.forEach.call(revealables, reveal);
+  } else {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            reveal(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    Array.prototype.forEach.call(revealables, function (el) {
+      if (el.getBoundingClientRect().top < window.innerHeight) {
+        reveal(el);
+      } else {
+        observer.observe(el);
+      }
     });
-});
 
-// Navbar scroll effect
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
+    window.setTimeout(function () {
+      Array.prototype.forEach.call(revealables, reveal);
+    }, 3000);
+  }
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
+  /* ------------------------------------------------------------------
+     Values dialog.
+     <dialog> brings the focus trap, Escape handling, inert background
+     and focus restoration with it, so this only supplies the content.
+     ------------------------------------------------------------------ */
+  var dialog = document.getElementById('value-modal');
+  var modalTitle = document.getElementById('modal-title');
+  var modalText = document.getElementById('modal-text');
+  var closeButton = dialog && dialog.querySelector('.value-modal-close');
+  var canShowModal = dialog && typeof dialog.showModal === 'function';
 
-    if (currentScroll <= 0) {
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
-    }
-
-    lastScroll = currentScroll;
-});
-
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe all sections and hero (NEAS intro)
-document.querySelectorAll('.section, .hero').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(20px)';
-    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(section);
-});
-
-
-// Value cards modal
-const valueCards = document.querySelectorAll('.value-card');
-const valueModal = document.getElementById('value-modal');
-const modalTitle = document.getElementById('modal-title');
-const modalText = document.getElementById('modal-text');
-const modalClose = document.querySelector('.value-modal-close');
-
-// Placeholder content for each value
-const valueContent = {
+  var valueContent = {
     kindness: {
-        title: 'Lead with Kindness',
-        text: 'We assume everyone is acting in good faith. We respect each other\'s limits. We help first.'
+      title: 'Lead with Kindness',
+      text: 'We assume everyone is acting in good faith. We respect each other\'s limits. We help first.'
     },
     inclusivity: {
-        title: 'Joyfully Embrace Inclusivity',
-        text: 'We welcome all fans who choose to join us in our community. We emphatically believe our community is best when every fan feels empowered to join in the celebration.'
+      title: 'Joyfully Embrace Inclusivity',
+      text: 'We welcome all fans who choose to join us in our community. We emphatically believe our community is best when every fan feels empowered to join in the celebration.'
     },
     authenticity: {
-        title: 'Act Authentically',
-        text: 'We own our mistakes. We are honest about our capacity. We bring our genuine passion to the work.'
+      title: 'Act Authentically',
+      text: 'We own our mistakes. We are honest about our capacity. We bring our genuine passion to the work.'
     },
     bold: {
-        title: 'Be Bold',
-        text: 'We aren\'t afraid to try new things or fix old problems. We ask "What if?"'
+      title: 'Be Bold',
+      text: 'We aren\'t afraid to try new things or fix old problems. We ask "What if?"'
     },
     together: {
-        title: 'Succeed Together',
-        text: 'No department or division is an island. We share the work, and we share the wins.'
+      title: 'Succeed Together',
+      text: 'No department or division is an island. We share the work, and we share the wins.'
     }
-};
+  };
 
-// Add click handlers to value cards
-valueCards.forEach(card => {
-    card.addEventListener('click', function() {
-        const valueType = this.getAttribute('data-value');
-        const content = valueContent[valueType];
+  function closeDialog() {
+    if (!dialog) return;
+    if (canShowModal) {
+      dialog.close();
+    } else {
+      dialog.removeAttribute('open');
+    }
+  }
 
-        if (content) {
-            modalTitle.textContent = content.title;
-            modalText.textContent = content.text;
-            valueModal.classList.add('active');
+  if (dialog && modalTitle && modalText) {
+    Array.prototype.forEach.call(document.querySelectorAll('.value-card'), function (card) {
+      card.addEventListener('click', function () {
+        var content = valueContent[card.getAttribute('data-value')];
+        if (!content) return;
+
+        modalTitle.textContent = content.title;
+        modalText.textContent = content.text;
+
+        if (canShowModal) {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute('open', '');
         }
+      });
     });
-});
 
-// Close modal when clicking the X
-if (modalClose) {
-    modalClose.addEventListener('click', function() {
-        valueModal.classList.remove('active');
+    if (closeButton) {
+      closeButton.addEventListener('click', closeDialog);
+    }
+
+    /* Clicking the backdrop closes. The dialog's own padding is part of the
+       element, so compare against its box rather than the event target. */
+    dialog.addEventListener('click', function (event) {
+      var box = dialog.getBoundingClientRect();
+      var inside =
+        event.clientX >= box.left &&
+        event.clientX <= box.right &&
+        event.clientY >= box.top &&
+        event.clientY <= box.bottom;
+
+      if (!inside) closeDialog();
     });
-}
-
-// Close modal when clicking outside
-valueModal.addEventListener('click', function(e) {
-    if (e.target === valueModal) {
-        valueModal.classList.remove('active');
-    }
-});
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && valueModal.classList.contains('active')) {
-        valueModal.classList.remove('active');
-    }
-});
+  }
+})();
 
 /* FUTURE FEATURE (disabled): bio pop-up for officers/board members.
-   Reuses the value-modal to show a short bio when a card is clicked.
+   Reuses the value dialog to show a short bio when a card is clicked.
    To re-enable: uncomment below and add data-person="..." back onto
    the .officer-card / .board-member elements in index.html.
 
@@ -167,35 +196,16 @@ const personContent = {
     }
 };
 
-// Add click handlers to officers
-const officerCards = document.querySelectorAll('.officer-card');
-officerCards.forEach(card => {
+// Add click handlers to officers and board members
+document.querySelectorAll('.officer-card, .board-member').forEach(card => {
     card.addEventListener('click', function() {
-        const personId = this.getAttribute('data-person');
-        const content = personContent[personId];
-
+        const content = personContent[this.getAttribute('data-person')];
         if (content) {
-            modalTitle.textContent = content.title;
-            modalText.textContent = content.text;
-            valueModal.classList.add('active');
-        }
-    });
-});
-
-// Add click handlers to board members
-const boardMembers = document.querySelectorAll('.board-member');
-boardMembers.forEach(member => {
-    member.addEventListener('click', function() {
-        const personId = this.getAttribute('data-person');
-        const content = personContent[personId];
-
-        if (content) {
-            modalTitle.textContent = content.title;
-            modalText.textContent = content.text;
-            valueModal.classList.add('active');
+            document.getElementById('modal-title').textContent = content.title;
+            document.getElementById('modal-text').textContent = content.text;
+            document.getElementById('value-modal').showModal();
         }
     });
 });
 
 */
-
