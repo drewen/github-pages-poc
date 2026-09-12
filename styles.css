@@ -73,6 +73,7 @@
      two-line label, and that the navbar logo lines up with section content. */
   --container: 1080px;
   --measure: 68ch;
+  /* Logo height; the sticky bar is taller because the menu sits under it. */
   --nav-h: 76px;
 }
 
@@ -92,8 +93,8 @@
 
 html {
   scroll-behavior: smooth;
-  /* Anchor targets clear the sticky navbar without any JavaScript. */
-  scroll-padding-top: calc(var(--nav-h) + 1rem);
+  /* Logo row + menu row under it; keep anchors clear of the sticky bar. */
+  scroll-padding-top: calc(var(--nav-h) + 3.5rem);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -205,33 +206,38 @@ p {
 
 .nav-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: var(--nav-h);
+  gap: 0.15rem;
+  padding-block: 0.35rem 0.2rem;
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
-  padding-block: 0.5rem;
   text-decoration: none;
+}
+
+.nav-logo picture {
+  display: block;
+  max-width: 100%;
 }
 
 .logo-img {
   display: block;
-  width: auto;
-  height: 44px;
+  /* Full logo height whenever the container allows; shrinks by width only. */
+  width: min(100%, calc(var(--nav-h) * 1200 / 150));
+  height: auto;
+  max-height: var(--nav-h);
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: clamp(0.25rem, 1.5vw, 1rem);
+  gap: clamp(0.15rem, 1vw, 0.75rem);
   list-style: none;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .nav-menu a {
@@ -310,11 +316,17 @@ p {
 }
 
 /* Five values: 5-up on desktop, a deliberate 3+2 on tablet, 2-up on phones.
-   auto-fit would leave a lone orphan card at several widths. */
+   Flex + justify-content centers the incomplete last row instead of left-aligning it. */
 .values-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--grid-gap);
+}
+
+.values-grid > .value-card {
+  flex: 0 1 calc((100% - 4 * var(--grid-gap)) / 5);
+  max-width: calc((100% - 4 * var(--grid-gap)) / 5);
 }
 
 .value-card {
@@ -433,10 +445,16 @@ p {
 }
 
 .board-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--grid-gap);
   margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.board-grid > .board-member {
+  flex: 0 1 calc((100% - 4 * var(--grid-gap)) / 5);
+  max-width: calc((100% - 4 * var(--grid-gap)) / 5);
 }
 
 .board-member {
@@ -656,13 +674,11 @@ html.js .reveal.is-visible {
    Responsive
    --------------------------------------------------------------------- */
 @media (max-width: 860px) {
-  .values-grid {
-    /* 3 + 2 reads as intentional; 4 + 1 does not. */
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .board-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .values-grid > .value-card,
+  .board-grid > .board-member {
+    /* 3 + 2; the trailing pair centers under the row above. */
+    flex-basis: calc((100% - 2 * var(--grid-gap)) / 3);
+    max-width: calc((100% - 2 * var(--grid-gap)) / 3);
   }
 
   .officers-grid {
@@ -671,33 +687,20 @@ html.js .reveal.is-visible {
 }
 
 @media (max-width: 620px) {
-  :root {
-    --nav-h: 64px;
-  }
-
-  .nav-container {
-    flex-direction: column;
-    gap: 0.25rem;
-    padding-block: 0.5rem;
-  }
-
-  .nav-menu {
-    justify-content: center;
-  }
-
-  .logo-img {
-    height: 38px;
-  }
-
-  .values-grid,
-  .board-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .values-grid > .value-card,
+  .board-grid > .board-member {
+    flex-basis: calc((100% - var(--grid-gap)) / 2);
+    max-width: calc((100% - var(--grid-gap)) / 2);
   }
 }
 
 @media (max-width: 400px) {
-  .values-grid,
-  .board-grid,
+  .values-grid > .value-card,
+  .board-grid > .board-member {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
   .officers-grid {
     grid-template-columns: minmax(0, 1fr);
   }
